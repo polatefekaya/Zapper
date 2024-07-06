@@ -1,0 +1,11 @@
+/home/polatefekaya/Desktop/deneme/realTimeApp/realTimeApp.Domain/bin/Debug/net8.0/realTimeApp.Domain.deps.json
+/home/polatefekaya/Desktop/deneme/realTimeApp/realTimeApp.Domain/bin/Debug/net8.0/realTimeApp.Domain.dll
+/home/polatefekaya/Desktop/deneme/realTimeApp/realTimeApp.Domain/bin/Debug/net8.0/realTimeApp.Domain.pdb
+/home/polatefekaya/Desktop/deneme/realTimeApp/realTimeApp.Domain/obj/Debug/net8.0/realTimeApp.Domain.GeneratedMSBuildEditorConfig.editorconfig
+/home/polatefekaya/Desktop/deneme/realTimeApp/realTimeApp.Domain/obj/Debug/net8.0/realTimeApp.Domain.AssemblyInfoInputs.cache
+/home/polatefekaya/Desktop/deneme/realTimeApp/realTimeApp.Domain/obj/Debug/net8.0/realTimeApp.Domain.AssemblyInfo.cs
+/home/polatefekaya/Desktop/deneme/realTimeApp/realTimeApp.Domain/obj/Debug/net8.0/realTimeApp.Domain.csproj.CoreCompileInputs.cache
+/home/polatefekaya/Desktop/deneme/realTimeApp/realTimeApp.Domain/obj/Debug/net8.0/realTimeApp.Domain.dll
+/home/polatefekaya/Desktop/deneme/realTimeApp/realTimeApp.Domain/obj/Debug/net8.0/refint/realTimeApp.Domain.dll
+/home/polatefekaya/Desktop/deneme/realTimeApp/realTimeApp.Domain/obj/Debug/net8.0/realTimeApp.Domain.pdb
+/home/polatefekaya/Desktop/deneme/realTimeApp/realTimeApp.Domain/obj/Debug/net8.0/ref/realTimeApp.Domain.dll
