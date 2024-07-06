@@ -18,6 +18,7 @@ public class NotificationService : INotificationService
         _logger.LogInformation("Notification Sending Is Started");
         Task notificationTask = _hubContext.Clients.All.SendAsync("NotificationReceived", notification);
         _logger.LogInformation("Notification Sent");
+        _logger.LogInformation("Header = {header}, Text = {text}", notification.Header, notification.Text);
         return notificationTask;
     }
 }

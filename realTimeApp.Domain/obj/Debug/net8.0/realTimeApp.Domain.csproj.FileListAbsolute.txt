@@ -9,3 +9,4 @@
 /home/polatefekaya/Desktop/deneme/realTimeApp/realTimeApp.Domain/obj/Debug/net8.0/refint/realTimeApp.Domain.dll
 /home/polatefekaya/Desktop/deneme/realTimeApp/realTimeApp.Domain/obj/Debug/net8.0/realTimeApp.Domain.pdb
 /home/polatefekaya/Desktop/deneme/realTimeApp/realTimeApp.Domain/obj/Debug/net8.0/ref/realTimeApp.Domain.dll
+/home/polatefekaya/Desktop/deneme/realTimeApp/realTimeApp.Domain/obj/Debug/net8.0/realTimeApp.Domain.sourcelink.json

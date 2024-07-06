@@ -24,12 +24,22 @@ class Program
 
         IHost host =  Host.CreateDefaultBuilder()
         .ConfigureServices((context, services) => {
-
+            services.AddSignalR();
+            services.AddTransient<IHubService, HubService>();
+            services.AddTransient<INotificationService, NotificationService>();
         })
         .UseSerilog()
         .Build();
 
-        
+        INotificationService notificationService = ActivatorUtilities.CreateInstance<NotificationService>(host.Services);
+
+        Notification notification = new Notification{
+            Header = "This is a header.",
+            Text = "This is a text field."
+        };
+
+        notificationService.SendNotificationAsync(notification);
+
     }
 
     static void BuildConfig(IConfigurationBuilder builder){
