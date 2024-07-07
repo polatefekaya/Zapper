@@ -1,4 +1,4 @@
-﻿using System;
+﻿using realTimeApp.Client.Domain.Data.Entities;
 using Microsoft.AspNetCore.SignalR.Client;
 namespace realTimeApp.Client.Console;
 

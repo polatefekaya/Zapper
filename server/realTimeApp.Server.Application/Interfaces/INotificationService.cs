@@ -1,6 +1,6 @@
-﻿using realTimeApp.Server.Domain;
+﻿using realTimeApp.Server.Domain.Data.Entities;
 
-namespace realTimeApp.Server.Application;
+namespace realTimeApp.Server.Application.Interfaces;
 
 public interface INotificationService
 {

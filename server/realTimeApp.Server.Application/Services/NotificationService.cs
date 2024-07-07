@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Logging;
-using realTimeApp.Server.Domain;
+using realTimeApp.Server.Domain.Data.Entities;
+using realTimeApp.Server.Application.Interfaces;
 
-namespace realTimeApp.Server.Application;
+namespace realTimeApp.Server.Application.Services;
 
 public class NotificationService : INotificationService
 {
