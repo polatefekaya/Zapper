@@ -3,13 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.002.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "realTimeApp.Console", "realTimeApp.Console\realTimeApp.Console.csproj", "{0E5A9B3E-557A-46AA-9D32-A3FEC3028A3E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "realTimeApp.Console", "server\realTimeApp.Console\realTimeApp.Console.csproj", "{0E5A9B3E-557A-46AA-9D32-A3FEC3028A3E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "realTimeApp.Application", "realTimeApp.Application\realTimeApp.Application.csproj", "{82C8D092-C295-499F-8526-1EA10FA740A9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "realTimeApp.Application", "server\realTimeApp.Application\realTimeApp.Application.csproj", "{82C8D092-C295-499F-8526-1EA10FA740A9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "realTimeApp.Domain", "realTimeApp.Domain\realTimeApp.Domain.csproj", "{A667F1F2-A775-4D3E-BB14-912870B45CAF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "realTimeApp.Domain", "server\realTimeApp.Domain\realTimeApp.Domain.csproj", "{A667F1F2-A775-4D3E-BB14-912870B45CAF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "realTimeApp.Infrastructure", "realTimeApp.Infrastructure\realTimeApp.Infrastructure.csproj", "{4F77CC3D-0F84-4792-B604-2D532FE351CD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "realTimeApp.Infrastructure", "server\realTimeApp.Infrastructure\realTimeApp.Infrastructure.csproj", "{4F77CC3D-0F84-4792-B604-2D532FE351CD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "client", "client", "{A6F229C3-0748-49FC-89E3-2D4F273F52CB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "realTimeApp.Client.Console", "client\realTimeApp.Client.Console\realTimeApp.Client.Console.csproj", "{84363D04-54FA-4170-8A3B-5D81154ABC93}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,11 +37,18 @@ Global
 		{4F77CC3D-0F84-4792-B604-2D532FE351CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4F77CC3D-0F84-4792-B604-2D532FE351CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4F77CC3D-0F84-4792-B604-2D532FE351CD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{84363D04-54FA-4170-8A3B-5D81154ABC93}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84363D04-54FA-4170-8A3B-5D81154ABC93}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84363D04-54FA-4170-8A3B-5D81154ABC93}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84363D04-54FA-4170-8A3B-5D81154ABC93}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5BF342F6-8EC1-481C-861B-69043412D2DF}
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{84363D04-54FA-4170-8A3B-5D81154ABC93} = {A6F229C3-0748-49FC-89E3-2D4F273F52CB}
 	EndGlobalSection
 EndGlobal
