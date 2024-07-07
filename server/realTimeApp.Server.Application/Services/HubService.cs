@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.SignalR;
-using realTimeApp.Domain;
+using realTimeApp.Server.Domain;
 
-namespace realTimeApp.Application;
+namespace realTimeApp.Server.Application;
 
 public class HubService : Hub, IHubService
 {

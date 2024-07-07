@@ -1,6 +1,6 @@
-﻿using realTimeApp.Domain;
+﻿using realTimeApp.Server.Domain;
 
-namespace realTimeApp.Application;
+namespace realTimeApp.Server.Application;
 
 public interface IHubService
 {

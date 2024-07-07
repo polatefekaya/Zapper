@@ -1,11 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <ItemGroup>
-    <ProjectReference Include="..\realTimeApp.Application\realTimeApp.Application.csproj" />
+    <ProjectReference Include="../realTimeApp.Application/realTimeApp.Server.Application.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.App" Version="2.2.8" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
     <PackageReference Include="Serilog.Extensions.Hosting" Version="8.0.0" />

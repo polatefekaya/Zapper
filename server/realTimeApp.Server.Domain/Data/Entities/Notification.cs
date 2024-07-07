@@ -1,4 +1,4 @@
-﻿namespace realTimeApp.Domain;
+﻿namespace realTimeApp.Server.Domain;
 
 public class Notification
 {

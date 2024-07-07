@@ -1,14 +1,7 @@
-﻿using Microsoft.AspNetCore;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.SignalR;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using realTimeApp.Application;
-using realTimeApp.Domain;
+﻿using realTimeApp.Server.Application;
+using realTimeApp.Server.Domain;
 using Serilog;
-namespace realTimeApp;
+namespace realTimeApp.Server.Console;
 
 class Program
 {
