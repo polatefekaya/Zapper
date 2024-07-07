@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="../realTimeApp.Domain/realTimeApp.Server.Domain.csproj" />
+    <ProjectReference Include="..\realTimeApp.Server.Domain\realTimeApp.Server.Domain.csproj" />
   </ItemGroup>
 
 </Project>

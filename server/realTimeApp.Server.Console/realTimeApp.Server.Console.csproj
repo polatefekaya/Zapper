@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <ItemGroup>
-    <ProjectReference Include="../realTimeApp.Application/realTimeApp.Server.Application.csproj" />
+    <ProjectReference Include="../realTimeApp.Server.Application/realTimeApp.Server.Application.csproj" />
   </ItemGroup>
 
   <ItemGroup>
