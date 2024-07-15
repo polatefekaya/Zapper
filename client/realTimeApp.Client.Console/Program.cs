@@ -1,12 +1,11 @@
 ﻿using realTimeApp.Client.Domain.Data.Entities;
 using Microsoft.AspNetCore.SignalR.Client;
+using realTimeApp.Client.Application.Interfaces;
+using realTimeApp.Client.Application.Services;
 namespace realTimeApp.Client.Console;
 
 class Program 
 {
-    private static HubConnection _hubConnection;
-    private static readonly string HostDomain = "http://localhost:5050";
-
     static Dictionary<string, Notification> notificationDict = new Dictionary<string, Notification>{
         {"welcome", new Notification(){Header = "Welcome To SignalR", Text = "This is a demo text"}},
         {"test", new Notification(){Header = "This is a test Header", Text = "This is a test text"}}
@@ -16,23 +15,21 @@ class Program
     {
         System.Console.WriteLine("Hello, World!");
         
-        _hubConnection = new HubConnectionBuilder()
-            .WithUrl(new Uri($"{HostDomain}/hub/notifications"))
-            .WithAutomaticReconnect()
-            .Build();
+        IHubConnectionService hubConnectionService = new HubConnectionService();
 
-        _hubConnection.StartAsync().Wait();
+        hubConnectionService.BuildConnection();
+        hubConnectionService.StartConnection();
+
          Notification notification = new Notification{
                         Header = "This is a header.",
                         Text = "This is a text field."
                     };
 
         //_hubConnection.InvokeCoreAsync("NotifyAll", new[]{notification}).Wait();
-        _hubConnection.On<Notification>(
-            "NotificationReceived", OnNotificationReceivedAsync);
+        hubConnectionService.On<Notification>("NotificationReceived", OnNotificationReceivedAsync);
 
-        while (true){
-            Commands().Wait();
+        while(true){
+            string? line = System.Console.ReadLine();
         }
     }
 
@@ -41,17 +38,5 @@ class Program
         // Do something meaningful with the notification.
         System.Console.WriteLine(notification.Header + "\n" + notification.Text);
         await Task.CompletedTask;
-    }
-
-    public static async Task Commands(){
-        string? line = System.Console.ReadLine();
-        if(line is not null) {
-            bool ContainsKey = notificationDict.ContainsKey(line.ToLower());
-            if(ContainsKey){
-                Notification notification = notificationDict[line];
-
-                await _hubConnection.SendAsync("NotifyAll", notification);
-            }
-        }
     }
 }

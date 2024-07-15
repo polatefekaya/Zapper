@@ -6,4 +6,6 @@ public interface IHubService
 {
     string ConsoleWriter();
     Task NotifyAll(Notification notification);
+    
+    
 }

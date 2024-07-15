@@ -1,5 +1,6 @@
-﻿using realTimeApp.Server.Application;
-using realTimeApp.Server.Domain;
+﻿using realTimeApp.Server.Application.Services;
+using realTimeApp.Server.Application.Interfaces;
+using realTimeApp.Server.Domain.Data.Entities;
 using Serilog;
 namespace realTimeApp.Server.Console;
 
