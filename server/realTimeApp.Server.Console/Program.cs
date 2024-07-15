@@ -2,6 +2,7 @@
 using realTimeApp.Server.Application.Interfaces;
 using realTimeApp.Server.Domain.Data.Entities;
 using Serilog;
+using realTimeApp.Server.Application;
 namespace realTimeApp.Server.Console;
 
 class Program
@@ -27,27 +28,22 @@ class Program
                 services.AddSignalR();
                 services.AddTransient<IHubService, HubService>();
                 services.AddTransient<INotificationService, NotificationService>();
+                services.AddTransient<ISignalSenderService, SignalSenderService>();
+                
+                services.AddControllers();
             })
             .Configure(app => {
                 app.UseRouting();
                 app.UseEndpoints(endpoints => {
                         endpoints.MapHub<HubService>("/hub/notifications");
+                        endpoints.MapControllers();
                     });
                 app.Run(async context =>{
                     //await context.Response.WriteAsync("Working");
 
-                    INotificationService notificationService = ActivatorUtilities.CreateInstance<NotificationService>(app.ApplicationServices);
-
-                    Notification notification = new Notification{
-                        Header = "This is a header.",
-                        Text = "This is a text field."
-                    };
-
-                    await notificationService.SendNotificationAsync(notification);
-
-                    
                 }
                 );
+                
             });
         })
         .UseSerilog()
