@@ -4,8 +4,7 @@ namespace realTimeApp.Server.Application.Interfaces;
 
 public interface IHubService
 {
-    string ConsoleWriter();
     Task NotifyAll(Notification notification);
-    
-    
+    Task AddToGroup(string groupName);
+    Task RemoveFromGroup(string groupName);
 }

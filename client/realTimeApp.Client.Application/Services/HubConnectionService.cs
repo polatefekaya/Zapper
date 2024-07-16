@@ -22,7 +22,11 @@ public class HubConnectionService : IHubConnectionService, IDisposable
             .WithUrl(new Uri(connPath))
             .WithAutomaticReconnect()
             .Build();
-        
+                
+        return _hubConnection;
+    }
+
+    public HubConnection GetHubConnection(){
         return _hubConnection;
     }
 

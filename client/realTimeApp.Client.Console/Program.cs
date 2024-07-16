@@ -37,6 +37,8 @@ class Program
 
         //_hubConnection.InvokeCoreAsync("NotifyAll", new[]{notification}).Wait();
         await hubConnectionService.On<Notification>("NotificationReceived", OnNotificationReceivedAsync);
+        HubConnection _hubConn = hubConnectionService.GetHubConnection();
+        await _hubConn.InvokeAsync("AddToGroup", "Zamazingos");
 
         while(true){
             string? line = System.Console.ReadLine();
