@@ -2,10 +2,8 @@
 
 namespace realTimeApp.Server.Application.Interfaces;
 
-public interface IHubService
+public interface IHubMessageService
 {
-    Task NotifyAll(Notification notification);
-    Task AddToGroup(string groupName);
-    Task RemoveFromGroup(string groupName);
     Task SendMessageToGroup(string groupName, MessageEntity message);
+    Task SendMessageToUser(string user, MessageEntity message);
 }

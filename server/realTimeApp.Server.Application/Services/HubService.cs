@@ -8,10 +8,12 @@ namespace realTimeApp.Server.Application.Services;
 public class HubService : Hub, IHubService
 {
     private readonly IHubNotificationService _hubNotificationService;
+    private readonly IHubMessageService _hubMessageService;
     private readonly ILogger<HubService> _logger;
-    public HubService(IHubNotificationService hubNotificationService, ILogger<HubService> logger){
+    public HubService(IHubNotificationService hubNotificationService, ILogger<HubService> logger, IHubMessageService hubMessageService){
         _hubNotificationService = hubNotificationService;
         _logger = logger;
+        _hubMessageService = hubMessageService;
     }
     public override Task OnConnectedAsync()
     {
@@ -40,5 +42,11 @@ public class HubService : Hub, IHubService
     public async Task RemoveFromGroup(string groupName){
         await Groups.RemoveFromGroupAsync(Context.ConnectionId, groupName);
         await _hubNotificationService.SendRemoveFromGroup(Context.ConnectionId, groupName);
+    }
+
+    public async Task SendMessageToGroup(string groupName, MessageEntity message){
+        message.Sender = Context.ConnectionId;
+        message.sentTime = DateTime.UtcNow;
+        await _hubMessageService.SendMessageToGroup(groupName, message);
     }
 }

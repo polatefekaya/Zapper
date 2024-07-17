@@ -30,7 +30,8 @@ class Program
                 services.AddTransient<INotificationService, NotificationService>();
                 services.AddTransient<ISignalSenderService, SignalSenderService>();
                 services.AddTransient<IHubNotificationService, HubNotificationService>();
-
+                services.AddTransient<IHubMessageService, HubMessageService>();
+                
                 services.AddControllers();
             })
             .Configure(app => {

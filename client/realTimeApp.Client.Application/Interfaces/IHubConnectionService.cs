@@ -9,6 +9,6 @@ public interface IHubConnectionService
     Task<HubConnection> StartConnection();
     Task<IDisposable> On<T>(string listeningName, Func<T, Task> handler);
     ref HubConnection GetHubConnection();
-    Task InvokeAsync(string methodName, string argument);
-    Task SendAsync(string methodName, string argument);
+    Task InvokeAsync(string methodName, object argument, object? argument2 = null);
+    Task SendAsync(string methodName, object argument);
 }

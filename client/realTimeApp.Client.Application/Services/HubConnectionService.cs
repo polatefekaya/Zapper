@@ -47,12 +47,16 @@ public class HubConnectionService : IHubConnectionService, IDisposable
         return _hubConnection;
     }
 
-    public async Task InvokeAsync(string methodName, string argument)
+    public async Task InvokeAsync(string methodName, object argument, object? argument2 = null)
     {
-        await _hubConnection.InvokeAsync(methodName, argument);
+        if(argument2 is null){
+            await _hubConnection.InvokeAsync(methodName, argument);
+        } else {
+            await _hubConnection.InvokeAsync(methodName, argument, argument2);
+        }
     }
 
-    public async Task SendAsync(string methodName, string argument)
+    public async Task SendAsync(string methodName, object argument)
     {
         await _hubConnection.SendAsync(methodName, argument);
     }

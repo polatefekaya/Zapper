@@ -31,12 +31,15 @@ class Program
         await host.StartAsync();
 
         IHubConnectionService hubConnectionService = host.Services.GetRequiredService<IHubConnectionService>();
+        IMessageService messageService = host.Services.GetRequiredService<IMessageService>();
 
         await hubConnectionService.BuildConnection();
         await hubConnectionService.StartConnection();
 
         //_hubConnection.InvokeCoreAsync("NotifyAll", new[]{notification}).Wait();
         await hubConnectionService.On<Notification>("NotificationReceived", OnNotificationReceivedAsync);
+        await hubConnectionService.On<MessageEntity>("MessageReceived", OnMessageReceivedAsync);
+
         await hubConnectionService.InvokeAsync("AddToGroup", "group1");
 
         while(true){
@@ -51,7 +54,14 @@ class Program
                         await hubConnectionService.InvokeAsync("AddToGroup", "group1");
                     break;
                     case "message":
-                        
+                        System.Console.WriteLine("Write your message");
+                        string? message = System.Console.ReadLine();
+                        if(message is not null){
+                            MessageEntity messageEntity = new MessageEntity{
+                                Body = message
+                            };
+                            await messageService.SendMessageToGroup("group1", messageEntity);
+                        }
                     break;
                     default:
                         break;
@@ -69,6 +79,11 @@ class Program
         await Task.CompletedTask;
     }
 
+    private static async Task OnMessageReceivedAsync(MessageEntity message){
+        System.Console.WriteLine(message.Sender + ": " + message.Body + "\n" + message.sentTime);
+        await Task.CompletedTask;
+    }
+
     static void BuildConfig(IConfigurationBuilder builder){
         builder.SetBasePath(Directory.GetCurrentDirectory())
         .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
@@ -76,6 +91,8 @@ class Program
     }
 
     static void ConfigureServices(IServiceCollection services){
-        services.AddTransient<IHubConnectionService, HubConnectionService>();
+        services.AddSingleton<IHubConnectionService, HubConnectionService>();
+        services.AddTransient<IGroupConnectionService, GroupConnectionService>();
+        services.AddTransient<IMessageService, MessageService>();
     }
 }
