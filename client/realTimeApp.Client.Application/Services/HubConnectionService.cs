@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.SignalR.Client;
+using Microsoft.Extensions.Logging;
 using realTimeApp.Client.Application;
 using realTimeApp.Client.Application.Interfaces;
 using realTimeApp.Client.Domain.Data;
@@ -8,6 +9,11 @@ namespace realTimeApp.Client.Application.Services;
 public class HubConnectionService : IHubConnectionService, IDisposable
 {
     private HubConnection _hubConnection;
+    private readonly ILogger<HubConnectionService> _logger;
+
+    public HubConnectionService(ILogger<HubConnectionService> logger){
+        _logger = logger;
+    }
 
     public async Task<IDisposable> On<T>(string listeningName, Func<T, Task> handler)
     {
@@ -26,8 +32,8 @@ public class HubConnectionService : IHubConnectionService, IDisposable
         return _hubConnection;
     }
 
-    public HubConnection GetHubConnection(){
-        return _hubConnection;
+    public ref HubConnection GetHubConnection(){
+        return ref _hubConnection;
     }
 
     public async void Dispose()
@@ -39,5 +45,15 @@ public class HubConnectionService : IHubConnectionService, IDisposable
     {
         await _hubConnection.StartAsync();
         return _hubConnection;
+    }
+
+    public async Task InvokeAsync(string methodName, string argument)
+    {
+        await _hubConnection.InvokeAsync(methodName, argument);
+    }
+
+    public async Task SendAsync(string methodName, string argument)
+    {
+        await _hubConnection.SendAsync(methodName, argument);
     }
 }

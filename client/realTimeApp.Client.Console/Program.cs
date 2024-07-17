@@ -37,13 +37,27 @@ class Program
 
         //_hubConnection.InvokeCoreAsync("NotifyAll", new[]{notification}).Wait();
         await hubConnectionService.On<Notification>("NotificationReceived", OnNotificationReceivedAsync);
-        HubConnection _hubConn = hubConnectionService.GetHubConnection();
-        await _hubConn.InvokeAsync("AddToGroup", "Zamazingos");
+        await hubConnectionService.InvokeAsync("AddToGroup", "group1");
 
         while(true){
             string? line = System.Console.ReadLine();
-            if(line is not null && line.Equals("exit")){
-                break;
+            if(line is not null){
+                bool exitCode = false;
+                switch(line){
+                    case "exit":
+                        exitCode = true;
+                    break;
+                    case "addtogroup":
+                        await hubConnectionService.InvokeAsync("AddToGroup", "group1");
+                    break;
+                    case "message":
+                        
+                    break;
+                    default:
+                        break;
+                }
+
+                if(exitCode) break;
             }
         }
     }
