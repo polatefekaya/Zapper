@@ -11,22 +11,25 @@ public class MessagingCommandsService : IMessagingCommandsService
     public MessagingCommandsService(IMessageService messageService){
         _messageService = messageService;
     }
-    public async Task<bool> MessageCommand(string command)
+    public async Task<int> MessageCommand(string command)
     {
-        bool exit = false;
+        int exitType = 0;
         Console.Clear();
         Console.WriteLine("group or user?");
         //Classify Commands
         switch(command){
             case "group":
-            break;
+                break;
             case "user":
-            break;
+                break;
             case "exit":
-                exit = true;
-            break;
+                exitType = 1;
+                break;
+            case "..":
+                exitType = 2;
+                break;
         }
-        return exit;
+        return exitType;
     }
 
     private async Task SendMessageToGroup(string groupName,string command){

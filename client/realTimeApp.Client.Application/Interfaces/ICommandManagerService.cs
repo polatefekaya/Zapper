@@ -2,7 +2,10 @@
 
 public interface ICommandManagerService
 {
-    Task<bool> StartMessageCommands();
-    Task<bool> StartGroupCommands();
-    Task<bool> Start(string command);
+    Task<int> StartMessageCommands();
+    Task<int> StartGroupCommands();
+    Task<int> Start(string command);
+    bool IsSessionOkay();
+    void SetSession(string session);
+    void SetSessionType(string type);
 }

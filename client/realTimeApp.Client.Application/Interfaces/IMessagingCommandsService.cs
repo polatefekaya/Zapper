@@ -2,5 +2,5 @@
 
 public interface IMessagingCommandsService
 {
-    Task<bool> MessageCommand(string command);
+    Task<int> MessageCommand(string command);
 }

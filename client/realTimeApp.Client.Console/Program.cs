@@ -32,6 +32,9 @@ class Program
 
         IHubConnectionService hubConnectionService = host.Services.GetRequiredService<IHubConnectionService>();
         IMessageService messageService = host.Services.GetRequiredService<IMessageService>();
+        ICommandManagerService commandManagerService = host.Services.GetRequiredService<ICommandManagerService>();
+
+        ISessionManagerService sessionManager = host.Services.GetRequiredService<ISessionManagerService>();
 
         await hubConnectionService.BuildConnection();
         await hubConnectionService.StartConnection();
@@ -40,35 +43,26 @@ class Program
         await hubConnectionService.On<Notification>("NotificationReceived", OnNotificationReceivedAsync);
         await hubConnectionService.On<MessageEntity>("MessageReceived", OnMessageReceivedAsync);
 
-        await hubConnectionService.InvokeAsync("AddToGroup", "group1");
+        //await hubConnectionService.InvokeAsync("AddToGroup", "group1");
 
-        while(true){
-            string? line = System.Console.ReadLine();
-            if(line is not null){
-                bool exitCode = false;
-                switch(line){
-                    case "exit":
-                        exitCode = true;
-                    break;
-                    case "addtogroup":
-                        await hubConnectionService.InvokeAsync("AddToGroup", "group1");
-                    break;
-                    case "message":
-                        System.Console.WriteLine("Write your message");
-                        string? message = System.Console.ReadLine();
-                        if(message is not null){
-                            MessageEntity messageEntity = new MessageEntity{
-                                Body = message
-                            };
-                            await messageService.SendMessageToGroup("group1", messageEntity);
-                        }
-                    break;
-                    default:
-                        break;
-                }
+        again:
+        System.Console.Clear();
 
-                if(exitCode) break;
-            }
+        if(sessionManager.GetCurrentSession() is not null){
+            System.Console.WriteLine($"Session: {sessionManager.GetCurrentSession()}");
+        }
+
+        if(sessionManager.GetCurrentSessionType() is not null){
+            System.Console.WriteLine($"Session Type: {sessionManager.GetCurrentSessionType()}");
+        }
+        System.Console.WriteLine("If you not joined to a group, you can not message anybody");
+        System.Console.WriteLine("message or group?");
+        string? line = System.Console.ReadLine();
+        if(line is not null){
+            int exitType = 0;
+            exitType = await commandManagerService.Start(line);
+            //if(exitType == 1) break;
+            if(exitType == 2) goto again;
         }
     }
 
@@ -94,5 +88,9 @@ class Program
         services.AddSingleton<IHubConnectionService, HubConnectionService>();
         services.AddTransient<IGroupConnectionService, GroupConnectionService>();
         services.AddTransient<IMessageService, MessageService>();
+        services.AddSingleton<ISessionManagerService, SessionManagerService>();
+        services.AddSingleton<ICommandManagerService, CommandManagerService>();
+        services.AddTransient<IMessagingCommandsService, MessagingCommandsService>();
+        services.AddTransient<IGroupCommandsService, GroupCommandsService>();
     }
 }
