@@ -39,11 +39,13 @@ public class CommandManagerService : ICommandManagerService
     {
         int exitType = 0;
         while(true){
+            Console.Clear();
+            Console.WriteLine("group or user?");
             string? line = Console.ReadLine();
             if(line is not null){
                 exitType = await _messagingCommands.MessageCommand(line);
             }
-            if(exitType == 1) break;
+            if(exitType == 1 || exitType == 2) break;
         }
         return exitType;
     }

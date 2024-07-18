@@ -16,8 +16,7 @@ public class MessagingCommandsService : IMessagingCommandsService
     public async Task<int> MessageCommand(string command)
     {
         int exitType = 0;
-        Console.Clear();
-        Console.WriteLine("group or user?");
+
         //Classify Commands
         switch(command){
             case "group":
@@ -40,9 +39,12 @@ public class MessagingCommandsService : IMessagingCommandsService
         string? sessionName = _sessionManagerService.GetCurrentSession();
         ArgumentNullException.ThrowIfNullOrWhiteSpace(sessionName);
 
+        Console.Clear();
+
         int exitType = 0;
         while(true){
             string? line = Console.ReadLine();
+            DeletePrevConsoleLine();
             if(line is not null){
                 switch(line){
                     case "exit":
@@ -66,5 +68,12 @@ public class MessagingCommandsService : IMessagingCommandsService
 
     public async Task SendMessage(string identifier, MessageEntity message){
         await _messageService.SendMessageToGroup(identifier, message);
+    }
+    private static void DeletePrevConsoleLine()
+    {
+        if (Console.CursorTop == 0) return;
+        Console.SetCursorPosition(0, Console.CursorTop - 1);
+        Console.Write(new string(' ', Console.WindowWidth));
+        Console.SetCursorPosition(0, Console.CursorTop);
     }
 }

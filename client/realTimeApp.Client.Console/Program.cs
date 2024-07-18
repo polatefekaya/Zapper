@@ -74,7 +74,7 @@ class Program
     }
 
     private static async Task OnMessageReceivedAsync(MessageEntity message){
-        System.Console.WriteLine(message.Sender + ": " + message.Body + "\n" + message.sentTime);
+        System.Console.WriteLine(message.Sender + ": " + message.Body + " - " + message.sentTime);
         await Task.CompletedTask;
     }
 
