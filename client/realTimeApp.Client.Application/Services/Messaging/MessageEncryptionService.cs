@@ -3,7 +3,7 @@ using realTimeApp.Client.Application.Interfaces.Cryptography;
 using realTimeApp.Client.Application.Interfaces.Messaging;
 using realTimeApp.Client.Application.Services.Cryptography;
 
-namespace realTimeApp.Client.Application.Services;
+namespace realTimeApp.Client.Application.Services.Messaging;
 
 public class MessageEncryptionService : IMessageEncryptionService
 {
