@@ -8,6 +8,15 @@
     <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="8.0.7" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Interfaces/Commands/" />
+    <Folder Include="Interfaces/Connection/" />
+    <Folder Include="Interfaces/Cryptography/" />
+    <Folder Include="Services/Commands/" />
+    <Folder Include="Services/Connection/" />
+    <Folder Include="Services/Cryptography/" />
+  </ItemGroup>
+
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>

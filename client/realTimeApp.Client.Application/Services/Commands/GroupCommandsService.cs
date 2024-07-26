@@ -1,7 +1,9 @@
 ﻿using Microsoft.Extensions.Logging;
 using realTimeApp.Client.Application.Interfaces;
+using realTimeApp.Client.Application.Interfaces.Commands;
+using realTimeApp.Client.Application.Interfaces.Connection;
 
-namespace realTimeApp.Client.Application.Services;
+namespace realTimeApp.Client.Application.Services.Commands;
 
 public class GroupCommandsService : IGroupCommandsService
 {

@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
-using realTimeApp.Client.Application.Interfaces;
+using realTimeApp.Client.Application.Interfaces.Connection;
 
-namespace realTimeApp.Client.Application.Services;
+namespace realTimeApp.Client.Application.Services.Connection;
 
 public class GroupConnectionService : IGroupConnectionService
 {

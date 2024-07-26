@@ -1,6 +1,6 @@
 ﻿using realTimeApp.Client.Domain.Data.Entities;
 
-namespace realTimeApp.Client.Application.Interfaces;
+namespace realTimeApp.Client.Application.Interfaces.Commands;
 
 public interface IMessagingCommandsService
 {

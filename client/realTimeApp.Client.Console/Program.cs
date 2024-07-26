@@ -6,6 +6,13 @@ using Microsoft.Extensions.Configuration;
 using Serilog;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.DependencyInjection;
+using realTimeApp.Client.Application.Services.Messaging;
+using realTimeApp.Client.Application.Services.Commands;
+using realTimeApp.Client.Application.Services.Connection;
+using realTimeApp.Client.Application.Interfaces.Connection;
+using realTimeApp.Client.Application.Interfaces.Messaging;
+using realTimeApp.Client.Application.Interfaces.Commands;
+using realTimeApp.Client.Application.Interfaces.Cryptography;
 namespace realTimeApp.Client.Console;
 
 class Program 
@@ -35,13 +42,17 @@ class Program
         ICommandManagerService commandManagerService = host.Services.GetRequiredService<ICommandManagerService>();
 
         ISessionManagerService sessionManager = host.Services.GetRequiredService<ISessionManagerService>();
+        IOnReceivedService onReceivedService = host.Services.GetRequiredService<IOnReceivedService>();
+        IMessageEncryptionService messageEncryptionService = host.Services.GetRequiredService<IMessageEncryptionService>();
 
         await hubConnectionService.BuildConnection();
         await hubConnectionService.StartConnection();
 
         //_hubConnection.InvokeCoreAsync("NotifyAll", new[]{notification}).Wait();
         await hubConnectionService.On<Notification>("NotificationReceived", OnNotificationReceivedAsync);
-        await hubConnectionService.On<MessageEntity>("MessageReceived", OnMessageReceivedAsync);
+        await hubConnectionService.On<MessageEntity>("MessageReceived", onReceivedService.OnMessageReceivedAsync);
+        await hubConnectionService.On<SecureMessageEntity>("SecureMessageReceived", onReceivedService.OnSecureMessageReceivedAsync);
+        //await hubConnectionService.On<MessageEntity>("MessageReceived", OnMessageReceivedAsync);
 
         //await hubConnectionService.InvokeAsync("AddToGroup", "group1");
 
@@ -75,6 +86,9 @@ class Program
 
     private static async Task OnMessageReceivedAsync(MessageEntity message){
         System.Console.WriteLine(message.Sender + ": " + message.Body + " - " + message.sentTime);
+        IMessageEncryptionService messageEncryptionService = new MessageEncryptionService();
+        //message.Body = await messageEncryptionService.DecryptMessage(message.Body, "naberknkbenpolat", "polatpolatpolatp");
+        System.Console.WriteLine(message.Sender + ": " + message.Body + " - " + message.sentTime);
         await Task.CompletedTask;
     }
 
@@ -92,5 +106,7 @@ class Program
         services.AddSingleton<ICommandManagerService, CommandManagerService>();
         services.AddTransient<IMessagingCommandsService, MessagingCommandsService>();
         services.AddTransient<IGroupCommandsService, GroupCommandsService>();
+        services.AddTransient<IMessageEncryptionService, MessageEncryptionService>();
+        services.AddSingleton<IOnReceivedService, OnReceivedService>();
     }
 }

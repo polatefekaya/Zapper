@@ -1,4 +1,4 @@
-﻿namespace realTimeApp.Client.Application.Interfaces;
+﻿namespace realTimeApp.Client.Application.Interfaces.Commands;
 
 public interface IGroupCommandsService
 {

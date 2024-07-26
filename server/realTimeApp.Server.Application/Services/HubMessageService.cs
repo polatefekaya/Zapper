@@ -21,6 +21,11 @@ public class HubMessageService : IHubMessageService
         await _hubContext.Clients.Group(groupName).SendAsync("MessageReceived", message);
     }
 
+    public async Task SendSecureMessageToGroup(string groupName, SecureMessageEntity message){
+        _logger.LogInformation("Sending a secure message to {gname}", groupName); 
+        await _hubContext.Clients.Group(groupName).SendAsync("SecureMessageReceived", message);
+    }
+
     public Task SendMessageToUser(string user, MessageEntity message)
     {
         throw new NotImplementedException();

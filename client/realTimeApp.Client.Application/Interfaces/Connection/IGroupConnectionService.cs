@@ -1,4 +1,4 @@
-﻿namespace realTimeApp.Client.Application.Interfaces;
+﻿namespace realTimeApp.Client.Application.Interfaces.Connection;
 
 public interface IGroupConnectionService
 {

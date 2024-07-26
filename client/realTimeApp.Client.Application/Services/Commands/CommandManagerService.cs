@@ -1,8 +1,9 @@
 ﻿using System.Reflection.Metadata;
 using Microsoft.Extensions.Logging;
 using realTimeApp.Client.Application.Interfaces;
+using realTimeApp.Client.Application.Interfaces.Commands;
 
-namespace realTimeApp.Client.Application.Services;
+namespace realTimeApp.Client.Application.Services.Commands;
 
 public class CommandManagerService : ICommandManagerService
 {

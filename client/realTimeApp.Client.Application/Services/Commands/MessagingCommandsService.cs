@@ -1,8 +1,12 @@
 ﻿using System.Reflection.Metadata;
+using System.Security.Cryptography;
+using System.Text;
 using realTimeApp.Client.Application.Interfaces;
+using realTimeApp.Client.Application.Interfaces.Commands;
+using realTimeApp.Client.Application.Interfaces.Messaging;
 using realTimeApp.Client.Domain.Data.Entities;
 
-namespace realTimeApp.Client.Application.Services;
+namespace realTimeApp.Client.Application.Services.Commands;
 
 public class MessagingCommandsService : IMessagingCommandsService
 {
@@ -67,7 +71,7 @@ public class MessagingCommandsService : IMessagingCommandsService
     }
 
     public async Task SendMessage(string identifier, MessageEntity message){
-        await _messageService.SendMessageToGroup(identifier, message);
+        await _messageService.SendSecureMessageToGroup(identifier, message);
     }
     private static void DeletePrevConsoleLine()
     {

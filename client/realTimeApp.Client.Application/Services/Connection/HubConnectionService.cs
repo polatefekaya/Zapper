@@ -1,10 +1,9 @@
 ﻿using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.Extensions.Logging;
-using realTimeApp.Client.Application;
-using realTimeApp.Client.Application.Interfaces;
+using realTimeApp.Client.Application.Interfaces.Connection;
 using realTimeApp.Client.Domain.Data;
-using realTimeApp.Client.Domain.Data.Entities;
-namespace realTimeApp.Client.Application.Services;
+
+namespace realTimeApp.Client.Application.Services.Connection;
 
 public class HubConnectionService : IHubConnectionService, IDisposable
 {
@@ -18,6 +17,10 @@ public class HubConnectionService : IHubConnectionService, IDisposable
     public async Task<IDisposable> On<T>(string listeningName, Func<T, Task> handler)
     {
         return _hubConnection.On<T>(listeningName, handler);
+    }
+
+    public async Task<IDisposable> On<T,TCrypto>(string listeningName, Func<T,TCrypto, Task> handler){
+        return _hubConnection.On<T,TCrypto>(listeningName, handler);
     }
 
     public async Task<HubConnection> BuildConnection(string? hubPath = null)

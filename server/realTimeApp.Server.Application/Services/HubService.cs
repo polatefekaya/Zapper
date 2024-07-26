@@ -2,6 +2,7 @@
 using realTimeApp.Server.Domain.Data.Entities;
 using realTimeApp.Server.Application.Interfaces;
 using Microsoft.Extensions.Logging;
+using realTimeApp.Server.Domain;
 
 namespace realTimeApp.Server.Application.Services;
 
@@ -48,5 +49,11 @@ public class HubService : Hub, IHubService
         message.Sender = Context.ConnectionId;
         message.sentTime = DateTime.UtcNow;
         await _hubMessageService.SendMessageToGroup(groupName, message);
+    }
+
+    public async Task SendSecureMessageToGroup(string groupName, SecureMessageEntity message){
+        message.Sender = Context.ConnectionId;
+        message.sentTime = DateTime.UtcNow;
+        await _hubMessageService.SendSecureMessageToGroup(groupName, message);
     }
 }
