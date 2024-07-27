@@ -24,12 +24,9 @@ public class MessageService : IMessageService
     }
 
     public async Task SendSecureMessageToGroup(string groupName, MessageEntity message){
-        SecureMessageEntity secureMessage = new SecureMessageEntity();
+        SecureMessageEntity secureMessage = message.ToEmptySecureMessage();
         
         secureMessage.Body = await _messageEncryptionService.EncryptMessage(message.Body, "naberknkbenpolat", "polatpolatpolatp");
-        secureMessage.Header = message.Header;
-        secureMessage.Sender = message.Sender;
-        secureMessage.sentTime = message.sentTime;
 
         await _hubConnectionService.InvokeAsync("SendSecureMessageToGroup", groupName, secureMessage);
     }
