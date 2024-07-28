@@ -1,4 +1,4 @@
-﻿namespace realTimeApp.Server.Domain.Data.Entities;
+﻿namespace realTimeApp.Crud.Domain.Data.Entities;
 
 public class SecureMessageEntity
 {
@@ -12,4 +12,3 @@ public class SecureMessageEntity
     public string? ChatIdHash {get; set;}
     public string? ReceiverUserIdHash {get; set;}
 }
-

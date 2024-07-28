@@ -2,6 +2,8 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using realTimeApp.Crud.Application.Interfaces.Consumers;
+using realTimeApp.Crud.Application.Services.Consumers;
 using Serilog;
 
 namespace realTimeApp.Crud.Console;
@@ -26,11 +28,20 @@ class Program
             services.AddMassTransit(busConfigurator => {
             busConfigurator.SetDefaultEndpointNameFormatter();
 
+            busConfigurator.AddConsumer<SecureMessageConsumerService>((ctx, cfg) => {
+                
+            });
+
             busConfigurator.UsingRabbitMq((ctx, configurator) => {
-                configurator.Host(new Uri(context.Configuration["MessageBroker:Host"]!), h => {
+                configurator.Host(
+                host: context.Configuration["MessageBroker:Host"]!,
+                virtualHost: context.Configuration["MessageBroker:Virtual"]!, 
+                configure: h => {
                     h.Username(context.Configuration["MessageBroker:UserName"]!);
                     h.Password(context.Configuration["MessageBroker:Password"]!);
+                    
                 });
+
 
                 configurator.ConfigureEndpoints(ctx);
             });
@@ -41,7 +52,7 @@ class Program
 
         await host.StartAsync();
 
-        
+        System.Console.ReadLine();
     }
 
     static void BuildConfig(IConfigurationBuilder builder){
@@ -51,6 +62,6 @@ class Program
     }
 
     static void ConfigureServices(IServiceCollection services){
-
+        services.AddSingleton<ISecureMessageConsumerService, SecureMessageConsumerService>();
     }
 }
