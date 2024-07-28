@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using MassTransit;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
@@ -21,11 +22,26 @@ class Program
         IHost host = Host.CreateDefaultBuilder(args)
         .ConfigureServices((context, services) => {
             ConfigureServices(services);
+            
+            services.AddMassTransit(busConfigurator => {
+            busConfigurator.SetDefaultEndpointNameFormatter();
+
+            busConfigurator.UsingRabbitMq((ctx, configurator) => {
+                configurator.Host(new Uri(context.Configuration["MessageBroker:Host"]!), h => {
+                    h.Username(context.Configuration["MessageBroker:UserName"]!);
+                    h.Password(context.Configuration["MessageBroker:Password"]!);
+                });
+
+                configurator.ConfigureEndpoints(ctx);
+            });
+        });
         })
         .UseSerilog()
         .Build();
 
         await host.StartAsync();
+
+        
     }
 
     static void BuildConfig(IConfigurationBuilder builder){

@@ -3,60 +3,61 @@ using realTimeApp.Server.Application.Interfaces;
 using realTimeApp.Server.Domain.Data.Entities;
 using Serilog;
 using realTimeApp.Server.Application;
+using MassTransit;
 namespace realTimeApp.Server.Console;
 
 class Program
 {
     static void Main(string[] args)
     {
-        ConfigurationBuilder builder = new ConfigurationBuilder();
-        BuildConfig(builder);
-
+        WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+        
         Log.Logger = new LoggerConfiguration()
-            .ReadFrom.Configuration(builder.Build())
+            .ReadFrom.Configuration(builder.Configuration)
             .Enrich.FromLogContext()
             .WriteTo.Console()
             .CreateLogger();
 
         Log.Logger.Information("Console App is Started");
-        
-        IHost host =  Host.CreateDefaultBuilder(args)
-        .ConfigureWebHost(webHost => {
-            webHost.UseKestrel(kestrel => {
-                kestrel.ListenAnyIP(5050);
-            }).ConfigureServices((context, services) => {
-                services.AddSignalR();
-                services.AddTransient<IHubService, HubService>();
-                services.AddTransient<INotificationService, NotificationService>();
-                services.AddTransient<ISignalSenderService, SignalSenderService>();
-                services.AddTransient<IHubNotificationService, HubNotificationService>();
-                services.AddTransient<IHubMessageService, HubMessageService>();
-                
-                services.AddControllers();
-            })
-            .Configure(app => {
-                app.UseRouting();
-                app.UseEndpoints(endpoints => {
-                        endpoints.MapHub<HubService>("/hub/notifications");
-                        endpoints.MapControllers();
-                    });
-                app.Run(async context =>{
-                    //await context.Response.WriteAsync("Working");
 
-                }
-                );
-                
+        builder.WebHost.UseKestrel(kestrel => {
+            kestrel.ListenAnyIP(5050);
+        });
+
+        builder.Logging.ClearProviders();
+        builder.Logging.AddSerilog(Log.Logger);
+
+        builder.Services.AddSignalR();
+        builder.Services.AddMassTransit(busConfigurator => {
+            busConfigurator.SetDefaultEndpointNameFormatter();
+
+            busConfigurator.UsingRabbitMq((context, configurator) => {
+                configurator.Host(new Uri(builder.Configuration["MessageBroker:Host"]!), h => {
+                    h.Username(builder.Configuration["MessageBroker:UserName"]!);
+                    h.Password(builder.Configuration["MessageBroker:Password"]!);
+                });
+
+                configurator.ConfigureEndpoints(context);
             });
-        })
-        .UseSerilog()
-        .Build();
+        });
 
-        host.Run();
-    }
+        builder.Services.AddTransient<IHubService, HubService>();
+        builder.Services.AddTransient<INotificationService, NotificationService>();
+        builder.Services.AddTransient<ISignalSenderService, SignalSenderService>();
+        builder.Services.AddTransient<IHubNotificationService, HubNotificationService>();
+        builder.Services.AddTransient<IHubMessageService, HubMessageService>();
 
-    static void BuildConfig(IConfigurationBuilder builder){
-        builder.SetBasePath(Directory.GetCurrentDirectory())
-        .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-        .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Production"}.json", optional: true);
+        builder.Services.AddControllers();
+
+        System.Console.WriteLine(builder.Configuration["RandomInfo"]);
+
+        var app = builder.Build();
+
+        app.UseRouting();
+        app.MapHub<HubService>("/hub/notifications");
+        app.MapControllers();
+
+
+        app.Run();
     }
 }
