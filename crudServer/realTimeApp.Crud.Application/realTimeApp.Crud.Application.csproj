@@ -14,4 +14,8 @@
     <ProjectReference Include="..\realTimeApp.Crud.Domain\realTimeApp.Crud.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Interfaces/Repository/" />
+  </ItemGroup>
+
 </Project>
