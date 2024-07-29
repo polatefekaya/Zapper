@@ -1,4 +1,5 @@
-﻿using realTimeApp.Server.Domain.Data.Entities;
+﻿using realTimeApp.Domain.Data.Entities;
+using realTimeApp.Server.Domain.Data.Entities;
 
 namespace realTimeApp.Server.Application.Interfaces;
 

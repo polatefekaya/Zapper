@@ -3,6 +3,7 @@ using realTimeApp.Server.Domain.Data.Entities;
 using realTimeApp.Server.Application.Interfaces;
 using Microsoft.Extensions.Logging;
 using realTimeApp.Server.Domain;
+using realTimeApp.Domain.Data.Entities;
 
 namespace realTimeApp.Server.Application.Services;
 

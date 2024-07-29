@@ -5,6 +5,7 @@ using Serilog;
 using realTimeApp.Server.Application;
 using MassTransit;
 using MassTransit.Transports.Fabric;
+using realTimeApp.Domain.Data.Entities;
 namespace realTimeApp.Server.Console;
 
 class Program
@@ -42,6 +43,7 @@ class Program
                 });
                 configurator.Publish<SecureMessageEntity>(cfg => {
                     cfg.ExchangeType = "fanout";
+                    //cfg.BindQueue("realTimeApp.Server.Domain.Data.Entities:SecureMessageEntity","SecureMessageConsumerService");
                 });
                 
                 configurator.ConfigureEndpoints(context);

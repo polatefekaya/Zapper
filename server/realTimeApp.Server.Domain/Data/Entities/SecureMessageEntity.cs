@@ -1,4 +1,4 @@
-﻿namespace realTimeApp.Server.Domain.Data.Entities;
+﻿namespace realTimeApp.Domain.Data.Entities;
 
 public class SecureMessageEntity
 {

@@ -28,9 +28,7 @@ class Program
             services.AddMassTransit(busConfigurator => {
             busConfigurator.SetDefaultEndpointNameFormatter();
 
-            busConfigurator.AddConsumer<SecureMessageConsumerService>((ctx, cfg) => {
-                
-            });
+            busConfigurator.AddConsumer<SecureMessageConsumerService>();
 
             busConfigurator.UsingRabbitMq((ctx, configurator) => {
                 configurator.Host(

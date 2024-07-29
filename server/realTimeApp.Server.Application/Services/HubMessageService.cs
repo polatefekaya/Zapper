@@ -1,6 +1,7 @@
 ﻿using MassTransit;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Logging;
+using realTimeApp.Domain.Data.Entities;
 using realTimeApp.Server.Application.Interfaces;
 using realTimeApp.Server.Domain.Data.Entities;
 
